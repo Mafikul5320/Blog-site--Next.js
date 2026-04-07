@@ -16,16 +16,17 @@ import Link from "next/link"
 import { adminRoute } from "@/Routes/adminRoutes"
 import { userRoute } from "@/Routes/userRoutes"
 import { Route } from "@/types"
+import { userRole } from "@/constant/user.role"
 
 
 export function AppSidebar({ user, ...props }: { user: { role: string } & React.ComponentProps<typeof Sidebar> }) {
 
   let routes: Route[] = [];
   switch (user.role) {
-    case "admin":
+    case userRole.ADMIN:
       routes = adminRoute
       break;
-    case "user":
+    case userRole.USER:
       routes = userRoute
       break;
 

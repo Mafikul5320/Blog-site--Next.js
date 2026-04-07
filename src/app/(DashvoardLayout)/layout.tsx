@@ -13,7 +13,7 @@ export default function layout({
 
 }) {
     const userInfo = {
-        role: "user"
+        role: "ADMIN"
     }
     return (
         <SidebarProvider>
