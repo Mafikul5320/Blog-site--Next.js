@@ -1,19 +1,12 @@
-import { cookies } from "next/headers";
+import { UserService } from "@/services/user.service";
 
 export default async function Home() {
-  const cokkeStore = await cookies()
-  const res = await fetch("http://localhost:4000/api/auth/get-session", {
-    headers: {
-      cookie: cokkeStore.toString()
-    },
-    cache: "no-store"
 
-
-  });
-  console.log(await res.json())
+  const session = await UserService.getSession();
+  console.log(session)
   return (
     <div>
-      <small>hi, {res.status}</small>
+      <small>hi, </small>
 
     </div>
   );
