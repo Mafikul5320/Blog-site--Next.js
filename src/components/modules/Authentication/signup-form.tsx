@@ -8,9 +8,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Field, FieldLabel } from "@/components/ui/field"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { authClient } from "@/lib/auth-client"
 import { useForm } from "@tanstack/react-form"
+import { toast } from "sonner"
+import * as z from "zod"
+
+
+const formSchema = z.object({
+  name: z.string().min(3, "This field is require"),
+  email: z.email(),
+  password: z.string().min(8, "Min length 8")
+})
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
 
@@ -21,8 +31,24 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       email: "",
       password: ""
     },
+    validators: {
+      onSubmit: formSchema
+    },
     onSubmit: async ({ value }) => {
-      console.log(value)
+      const toastId = toast.loading("User Creating...")
+      try {
+        const { data, error } = await authClient.signUp.email(value);
+        if (error) {
+          toast.error(error.message, { id: toastId });
+          return;
+        };
+
+        toast.success("user Create sucessfull", { id: toastId })
+
+      } catch (error) {
+        toast.error("Internal server...", { id: toastId })
+
+      }
     }
   })
 
@@ -42,6 +68,9 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         }
         }>
           <form.Field name="name" children={(field) => {
+            // all docs shadcn ui
+            const isInvalid =
+              field.state.meta.isTouched && !field.state.meta.isValid
             return (
               <Field>
                 <FieldLabel>Name: </FieldLabel>
@@ -51,6 +80,9 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   id={field.name}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
+                {isInvalid && (
+                  <FieldError errors={field.state.meta.errors} />
+                )}
               </Field>
             )
           }}>
@@ -58,6 +90,8 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
 
           </form.Field>
           <form.Field name="email" children={(field) => {
+            const isInvalid =
+              field.state.meta.isTouched && !field.state.meta.isValid
             return (
               <Field>
                 <FieldLabel>Email: </FieldLabel>
@@ -67,6 +101,9 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   id={field.name}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
+                {isInvalid && (
+                  <FieldError errors={field.state.meta.errors} />
+                )}
               </Field>
             )
           }}>
@@ -74,6 +111,8 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
 
           </form.Field>
           <form.Field name="password" children={(field) => {
+            const isInvalid =
+              field.state.meta.isTouched && !field.state.meta.isValid
             return (
               <Field>
                 <FieldLabel>Name: </FieldLabel>
@@ -83,6 +122,9 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   id={field.name}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
+                {isInvalid && (
+                  <FieldError errors={field.state.meta.errors} />
+                )}
               </Field>
             )
           }}>
@@ -93,7 +135,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         </form>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button form="reg" type="submit">Submit</Button>
+        <Button form="reg" type="submit">Register</Button>
       </CardFooter>
     </Card>
   )
