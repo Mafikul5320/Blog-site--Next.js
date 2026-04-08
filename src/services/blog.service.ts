@@ -33,4 +33,17 @@ export const BlogService = {
             console.log(error)
         }
     }
+};
+
+export const singlePost = {
+    SinglePost: async function (id: string) {
+        try {
+            const result = await fetch(`${API}/posts/${id}`);
+            const data = result.json();
+            console.log(data,"service")
+            return data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

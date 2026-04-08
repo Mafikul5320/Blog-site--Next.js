@@ -1,4 +1,5 @@
 import { Post } from "@/types";
+import Link from "next/link";
 
 const PostCard = ({ post }: { post: Post }) => {
     return (
@@ -45,9 +46,9 @@ const PostCard = ({ post }: { post: Post }) => {
                     <div className="text-[11px] text-gray-400">
                         <p>Created: {new Date(post.createAt).toLocaleDateString()}</p>
                     </div>
-                    <button className="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
+                    <Link href={`blog/${post.post_id}`}><button className="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
                         Read More →
-                    </button>
+                    </button></Link>
                 </div>
             </div>
         </div>
