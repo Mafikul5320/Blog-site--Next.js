@@ -78,7 +78,7 @@ export function LoginForm({
             id="log"
             onSubmit={(e) => {
               e.preventDefault()
-              form.handleSubmit() // ✅ FIXED
+              form.handleSubmit() 
             }}
             className="space-y-4"
           >
