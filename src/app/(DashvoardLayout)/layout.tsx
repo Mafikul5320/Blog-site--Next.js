@@ -1,7 +1,8 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { UserService } from "@/services/user.service";
 
-export default function layout({
+export default async function layout({
     children,
     admin,
     user
@@ -12,9 +13,10 @@ export default function layout({
     user: React.ReactNode
 
 }) {
-    const userInfo = {
-        role: "ADMIN"
-    }
+
+    const data =  await UserService.getSession();
+
+    const userInfo = data.user  
     return (
         <SidebarProvider>
             <AppSidebar user={userInfo} />

@@ -22,7 +22,6 @@ import * as z from "zod"
 import { useForm } from "@tanstack/react-form"
 
 
-// ✅ schema fix (name remove)
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Min length 8"),

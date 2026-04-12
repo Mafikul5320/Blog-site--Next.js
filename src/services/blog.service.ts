@@ -11,7 +11,7 @@ export const BlogService = {
     getBlogPost: async function (params?: GetParams) {
         try {
 
-            const url = new URL(`${API}/posts`)
+            const url = new URL(`${API}/posts/all`)
             // url.searchParams.append("key", "value")
 
 
@@ -24,7 +24,8 @@ export const BlogService = {
             }
             console.log(url.toString())
             const result = await fetch(url.toString(), {
-                next: { revalidate: 30 }
+                next: { tags: ["blogPost"] },
+                cache: "no-store"
             });
             const data = result.json();
             return data;
@@ -40,7 +41,7 @@ export const singlePost = {
         try {
             const result = await fetch(`${API}/posts/${id}`);
             const data = result.json();
-            console.log(data,"service")
+            console.log(data, "service")
             return data;
         } catch (error) {
             console.log(error)
