@@ -14,3 +14,10 @@ export interface Post {
     posts: number;
   };
 }
+
+export interface Blog {
+    title: string,
+    content: string,
+    thumbnail: string,
+    tag?: string[]
+}
