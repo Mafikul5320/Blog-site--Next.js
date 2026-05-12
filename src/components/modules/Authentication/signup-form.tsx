@@ -19,7 +19,7 @@ import * as z from "zod"
 const formSchema = z.object({
   name: z.string().min(3, "This field is require"),
   email: z.email(),
-  password: z.string().min(8, "Min length 8")
+  password: z.string().min(8, "Min length 8"),
 })
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {

@@ -29,7 +29,6 @@ export function AppSidebar({ user, ...props }: { user: { role: string } & React.
     case userRole.USER:
       routes = userRoute
       break;
-
     default:
       routes = []
       break;

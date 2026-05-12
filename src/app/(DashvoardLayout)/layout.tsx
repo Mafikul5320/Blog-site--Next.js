@@ -14,9 +14,9 @@ export default async function layout({
 
 }) {
 
-    const data =  await UserService.getSession();
+    const data = await UserService.getSession();
 
-    const userInfo = data.user  
+    const userInfo = data.user
     return (
         <SidebarProvider>
             <AppSidebar user={userInfo} />

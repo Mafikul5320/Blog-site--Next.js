@@ -134,12 +134,6 @@ export function LoginForm({
 
           </form>
         </CardContent>
-
-        <CardFooter className="flex justify-end">
-          <Button form="log" type="submit">
-            Login
-          </Button>
-        </CardFooter>
       </Card>
     </div>
   )
